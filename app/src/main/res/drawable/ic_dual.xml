@@ -1,0 +1,7 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="38dp" android:height="38dp"
+    android:viewportWidth="38" android:viewportHeight="38">
+    <!-- two stacked bars: big (km) over small (mi) -->
+    <path android:fillColor="#9FB3BD"
+        android:pathData="M5,8h28v12h-28zM11,24h16v6h-16z" />
+</vector>

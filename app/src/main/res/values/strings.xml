@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dual Units</string>
+    <string name="extension_name">Dual Units</string>
+    <string name="speed">Speed</string>
+    <string name="speed_desc">Current speed in km/h, with mph underneath</string>
+    <string name="avg_speed">Avg Speed</string>
+    <string name="avg_speed_desc">Ride average speed in km/h, with mph underneath</string>
+    <string name="distance">Distance</string>
+    <string name="distance_desc">Ride distance in km, with miles underneath</string>
+    <string name="distance_to_go">Dist to Go</string>
+    <string name="distance_to_go_desc">Distance remaining on route in km, with miles underneath</string>
+</resources>

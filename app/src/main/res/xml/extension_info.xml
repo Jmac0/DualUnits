@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionInfo
+    displayName="@string/extension_name"
+    icon="@drawable/ic_dual"
+    id="dualunits"
+    scansDevices="false">
+    <DataType
+        typeId="speed"
+        displayName="@string/speed"
+        description="@string/speed_desc"
+        graphical="true"
+        icon="@drawable/ic_speed" />
+    <DataType
+        typeId="avg-speed"
+        displayName="@string/avg_speed"
+        description="@string/avg_speed_desc"
+        graphical="true"
+        icon="@drawable/ic_speed" />
+    <DataType
+        typeId="distance"
+        displayName="@string/distance"
+        description="@string/distance_desc"
+        graphical="true"
+        icon="@drawable/ic_distance" />
+    <DataType
+        typeId="distance-to-go"
+        displayName="@string/distance_to_go"
+        description="@string/distance_to_go_desc"
+        graphical="true"
+        icon="@drawable/ic_flag" />
+</ExtensionInfo>

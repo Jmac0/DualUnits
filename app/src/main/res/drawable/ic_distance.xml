@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="38dp" android:height="38dp"
+    android:viewportWidth="38" android:viewportHeight="38">
+    <!-- road with dashed centre line -->
+    <path android:fillColor="#9FB3BD"
+        android:pathData="M13,5h3L13,33h-3zM22,5h3l3,28h-3z" />
+    <path android:fillColor="#9FB3BD"
+        android:pathData="M18,7h2v5h-2zM18,16h2v5h-2zM18,25h2v6h-2z" />
+</vector>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:icon="@drawable/ic_dual"
+        android:label="@string/app_name">
+
+        <service
+            android:name=".DualUnitsExtension"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <!-- Lets the Karoo discover this extension -->
+            <intent-filter>
+                <action android:name="io.hammerhead.karooext.KAROO_EXTENSION" />
+            </intent-filter>
+            <meta-data
+                android:name="io.hammerhead.karooext.EXTENSION_INFO"
+                android:resource="@xml/extension_info" />
+        </service>
+        <!-- Receives taps on a data field to switch km <-> miles -->
+        <receiver
+            android:name=".ToggleReceiver"
+            android:exported="false" />
+    </application>
+</manifest>
