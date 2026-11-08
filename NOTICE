@@ -1,0 +1,4 @@
+The `karoo-ext/` directory contains a copy of Hammerhead's karoo-ext SDK
+(https://github.com/hammerheadnav/karoo-ext), Copyright (c) SRAM LLC,
+licensed under the Apache License 2.0 — see karoo-ext/LICENSE.
+`app/src/main/res/drawable/ic_speed.xml` is from the same project.

@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-The `karoo-ext/` directory contains a copy of Hammerhead's karoo-ext SDK
-(https://github.com/hammerheadnav/karoo-ext), Copyright (c) SRAM LLC,
-licensed under the Apache License 2.0 — see karoo-ext/LICENSE.
-`app/src/main/res/drawable/ic_speed.xml` is from the same project.
