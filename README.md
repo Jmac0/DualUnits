@@ -38,3 +38,7 @@ No GitHub token is needed: Hammerhead's `karoo-ext` SDK (v1.1.9, Apache-2.0) is 
 ## Add the fields
 
 On the Karoo, go to **Profiles → (your profile) → edit a page → tap a field**. The four fields are listed under **Dual Units**.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE). The bundled Hammerhead karoo-ext SDK in `karoo-ext/` is Apache 2.0.
