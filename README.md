@@ -1,11 +1,12 @@
 # Dual Units – Karoo extension
 
-Four data fields that show metric at full size. **Tap a field to switch it to imperial** (shown in blue), and tap again to switch back. Each field remembers its own setting.
+Five data fields that show metric at full size. **Tap a field to switch it to imperial** (shown in blue), and tap again to switch back. Each field remembers its own setting.
 
 | Field      | Default | Tap      |
 |------------|---------|----------|
 | Speed      | km/h    | mph      |
 | Avg Speed  | km/h    | mph      |
+| Lap Avg Speed | km/h | mph      |
 | Distance   | km      | mi       |
 | Dist to Go | km      | mi       |
 

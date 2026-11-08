@@ -32,6 +32,14 @@ class DualUnitsExtension : KarooExtension("dualunits", "1.0") {
             ),
             DualUnitDataType(
                 karooSystem, extension,
+                typeId = "lap-avg-speed",
+                sourceType = DataType.Type.AVERAGE_SPEED_LAP,
+                sourceField = DataType.Field.AVERAGE_SPEED,
+                measure = Measure.SPEED,
+                previewValue = 8.1, // m/s ≈ 29 km/h
+            ),
+            DualUnitDataType(
+                karooSystem, extension,
                 typeId = "distance",
                 sourceType = DataType.Type.DISTANCE,
                 sourceField = DataType.Field.DISTANCE,

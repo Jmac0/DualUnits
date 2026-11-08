@@ -17,6 +17,12 @@
         graphical="true"
         icon="@drawable/ic_speed" />
     <DataType
+        typeId="lap-avg-speed"
+        displayName="@string/lap_avg_speed"
+        description="@string/lap_avg_speed_desc"
+        graphical="true"
+        icon="@drawable/ic_speed" />
+    <DataType
         typeId="distance"
         displayName="@string/distance"
         description="@string/distance_desc"

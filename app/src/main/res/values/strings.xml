@@ -6,6 +6,8 @@
     <string name="speed_desc">Current speed in km/h, with mph underneath</string>
     <string name="avg_speed">Avg Speed</string>
     <string name="avg_speed_desc">Ride average speed in km/h, with mph underneath</string>
+    <string name="lap_avg_speed">Lap Avg Speed</string>
+    <string name="lap_avg_speed_desc">Average speed this lap in km/h; tap for mph</string>
     <string name="distance">Distance</string>
     <string name="distance_desc">Ride distance in km, with miles underneath</string>
     <string name="distance_to_go">Dist to Go</string>
