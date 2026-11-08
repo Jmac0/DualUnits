@@ -13,34 +13,38 @@ import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.action.actionSendBroadcast
+import androidx.compose.ui.unit.dp
+import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
+import androidx.glance.layout.padding
 import androidx.glance.layout.ContentScale
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.unit.ColorProvider
 import io.hammerhead.karooext.models.ViewConfig
 import kotlin.math.max
-import kotlin.math.min
+import kotlin.math.ceil
 
-// Height of the Karoo's title row above the field (px), and side padding (px).
-private const val HEADER_PX = 48
+// Side padding (px).
 private const val PAD_PX = 8f
 
 private const val UNIT_RATIO = 0.32f // unit label font vs number font
 
 /**
- * Number and unit drawn as two alpha masks the same size as the field.
- * They're tinted by the Karoo when shown, so theme (day/night) colours still apply.
+ * Number and unit drawn as two alpha masks, cropped tightly around the text and
+ * shown at true pixel size. They're tinted by the Karoo when shown, so theme
+ * colours still apply.
  *
  * We draw the text ourselves rather than using a text view because Android pads
  * text vertically, and at the Karoo's standard size that padding pushes the
- * digits out of the field.
+ * digits out of the field. Cropping tightly means we don't need to know how much
+ * of the slot the Karoo's title row takes (it varies by slot size); if the text
+ * is ever taller than the space left, the Karoo scales it down to fit.
  */
 class FieldBitmaps(val number: Bitmap, val unit: Bitmap)
 
 fun renderField(context: Context, config: ViewConfig, value: String, unitLabel: String): FieldBitmaps {
-    val w = max(1, config.viewSize.first)
-    val h = max(1, config.viewSize.second - HEADER_PX)
     val density = context.resources.displayMetrics.density
+    val maxW = config.viewSize.first - 2 * PAD_PX
 
     val numPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         typeface = Typeface.DEFAULT // regular weight, matching the Karoo's built-in fields
@@ -48,34 +52,28 @@ fun renderField(context: Context, config: ViewConfig, value: String, unitLabel: 
     }
     val unitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.DEFAULT }
     val unitText = " $unitLabel"
-
-    // Digit height at this font size, used to centre the number vertically.
-    val digit = Rect().also { numPaint.getTextBounds("0", 0, 1, it) }
-    var digitH = digit.height().toFloat()
-
-    // Shrink only if needed: too wide for "value unit", or digits taller than the field.
     unitPaint.textSize = numPaint.textSize * UNIT_RATIO
+
+    // Shrink only if "value unit" is too wide for the slot.
     val totalW = numPaint.measureText(value) + unitPaint.measureText(unitText)
-    val scale = min(1f, min((w - 2 * PAD_PX) / totalW, (h - 2 * PAD_PX) / digitH))
-    if (scale < 1f) {
-        numPaint.textSize *= scale
+    if (totalW > maxW) {
+        numPaint.textSize *= maxW / totalW
         unitPaint.textSize = numPaint.textSize * UNIT_RATIO
-        digitH *= scale
     }
 
+    // Crop from the top of the digits to the bottom of any descender in the unit (e.g. "p" in mph).
+    val digit = Rect().also { numPaint.getTextBounds("0", 0, 1, it) }
+    val top = digit.top.toFloat() // negative: distance above baseline
+    val bottom = unitPaint.fontMetrics.descent
     val numW = numPaint.measureText(value)
-    val width = numW + unitPaint.measureText(unitText)
-    val x = when (config.alignment) {
-        ViewConfig.Alignment.LEFT -> PAD_PX
-        ViewConfig.Alignment.CENTER -> (w - width) / 2
-        ViewConfig.Alignment.RIGHT -> w - PAD_PX - width
-    }
-    val baseline = (h + digitH) / 2
+    val w = max(1, ceil(numW + unitPaint.measureText(unitText)).toInt())
+    val h = max(1, ceil(bottom - top).toInt())
+    val baseline = -top
 
     val number = Bitmap.createBitmap(w, h, Bitmap.Config.ALPHA_8)
-    Canvas(number).drawText(value, x, baseline, numPaint)
+    Canvas(number).drawText(value, 0f, baseline, numPaint)
     val unit = Bitmap.createBitmap(w, h, Bitmap.Config.ALPHA_8)
-    Canvas(unit).drawText(unitText, x + numW, baseline, unitPaint)
+    Canvas(unit).drawText(unitText, numW, baseline, unitPaint)
     return FieldBitmaps(number, unit)
 }
 
@@ -97,24 +95,30 @@ fun DualUnitView(
     // Imperial is shown in the accent colour so it's obvious which unit you're looking at.
     val numberColor = ColorProvider(if (imperial) R.color.imperial_text else R.color.primary_text)
 
+    val horizontal = when (config.alignment) {
+        ViewConfig.Alignment.LEFT -> Alignment.Horizontal.Start
+        ViewConfig.Alignment.CENTER -> Alignment.Horizontal.CenterHorizontally
+        ViewConfig.Alignment.RIGHT -> Alignment.Horizontal.End
+    }
+
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
+            .padding(horizontal = 4.dp)
             .clickable(actionSendBroadcast(UnitToggle.tapIntent(context, typeId))),
+        contentAlignment = Alignment(horizontal, Alignment.Vertical.CenterVertically),
     ) {
         Image(
             provider = ImageProvider(bitmaps.number),
             contentDescription = "$value $unit",
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(numberColor),
-            modifier = GlanceModifier.fillMaxSize(),
         )
         Image(
             provider = ImageProvider(bitmaps.unit),
             contentDescription = null,
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(ColorProvider(R.color.secondary_text)),
-            modifier = GlanceModifier.fillMaxSize(),
         )
     }
 }
